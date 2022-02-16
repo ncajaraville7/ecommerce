@@ -29,12 +29,12 @@ const ItemCount = ({ stock, initial, onAdd }) => {
   return (
     <Stack direction='column' justify='center' align='center'>
       <Stack direction='row' justify='center' align='center'>
-        <Button type='button' onClick={subtract}> - </Button>
-        <Text>{count}</Text>
-        <Button type='button' onClick={add}> + </Button>
+        <Button type='button' onClick={subtract} fontSize='18px'> - </Button>
+        <Text fontSize='18px' marginLeft='15px !important' marginRight='15px !important'>{count}</Text>
+        <Button type='button' onClick={add} fontSize='18px' margin='0 !important'> + </Button>
       </Stack>
       <Box>
-        <Button type='button' onClick={ ()=> onAdd(count) }>Agregar al carrito</Button>
+        <Button type='button' onClick={ ()=> onAdd(count) } fontSize='18px'>Agregar al carrito</Button>
       </Box>
     </Stack>
   )

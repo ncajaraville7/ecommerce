@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Item = ({ id, title, pictureUrl, price}) => {
   return (
-    <Link to={"/products/" + id}>
+    <Link to={"/item/" + id}>
       <Stack p={4}>
         <Box>
           <Image src={pictureUrl} alt={title} w='265px' h='280px' />
