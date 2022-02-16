@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "title": "Remera lisa blanca",
+      "description": "Remera lisa blanca entallada",
+      "price": 1800,
+      "pictureUrl": "https://http2.mlstatic.com/D_NQ_NP_844443-MLA44794673997_022021-W.jpg",
+      "category": 1
+    },
+    {
+      "id": 2,
+      "title": "Remera lisa negra",
+      "description": "Remera lisa negra entallada",
+      "price": 1800,
+      "pictureUrl": "https://http2.mlstatic.com/D_NQ_NP_980230-MLA31010104254_062019-W.jpg",
+      "category": 1
+    },
+    {
+      "id": 3,
+      "title": "Remera lisa gris",
+      "description": "Remera gris topo",
+      "price": 1800,
+      "pictureUrl": "https://www.segutecnica.com/images/000000000001756537023remera-gris-segutecnica.png",
+      "category": 1
+    }
+  ]
