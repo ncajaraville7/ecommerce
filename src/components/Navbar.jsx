@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Stack, Icon, Image, Text, Container } from '@chakra-ui/react';
-import { FaSistrix } from "react-icons/fa";
+import { Box, Stack, Image, Text, Container } from '@chakra-ui/react';
 import logo  from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import CartWidget from './CartWidget';
@@ -11,9 +10,19 @@ const Navbar = () => {
         <Container maxWidth='90%'>
             <Stack as='nav' direction='row' justify='space-between' align='center'>
                 <Image src={logo} alt='logo' w='150px'/>
+                <Stack direction='row'>
+                  <Link to='/category/2'>
+                    <Text mr='30px'>Tortas</Text>
+                  </Link>
+                  <Link to='/category/3'>
+                    <Text mr='30px'>Box</Text>
+                  </Link>
+                  <Link to='/category/1'>
+                    <Text mr='30px'>Pan Dulce</Text>
+                  </Link>
+                </Stack>
                 <Stack as='ul' direction='row' align='center'>
-                  <Link to='/'><Text>Inicio</Text></Link>
-                  <Icon as={FaSistrix} cursor='pointer' margin='0 35px !important' h={5} w={5} />
+                  <Link to='/'><Text mr='30px'>Inicio</Text></Link>
                   <CartWidget />
                 </Stack>
             </Stack>
