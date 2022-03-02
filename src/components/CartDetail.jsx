@@ -1,13 +1,15 @@
 import { Button, Container, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import { CartContext } from './CartContext'
 
 const CartDetail = () => {
 
   const test = useContext(CartContext);
+  const totalCost = test.cartList.reduce( (total, item) => item.price + total, 0);
 
   return (
-    <>
+    <Stack>
       {
         test.cartList.length > 0 ?
 
@@ -36,9 +38,25 @@ const CartDetail = () => {
 
         :
 
-        <Heading textAlign='center' mt={8}>No hay productos en el carrito</Heading>
+        <Stack>
+          <Heading textAlign='center' mt={8}>No hay productos en el carrito</Heading>
+          <Button maxW='10%' margin='2rem auto !important'>
+            <Link to='/'>Volver al inicio</Link>
+          </Button>
+        </Stack>
       }
-    </>
+
+      {
+        test.cartList.length > 0 && 
+        <Container maxW='90%'>
+          <Stack direction='row' mt='2rem !important' align='center'>
+            <Heading as='h4'>Total:</Heading>
+            <Text fontSize='28px'>${totalCost}</Text>
+          </Stack>
+        </Container>
+      }
+      
+    </Stack>
   )
 }
 
