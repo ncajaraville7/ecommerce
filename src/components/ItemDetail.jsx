@@ -13,11 +13,6 @@ const ItemDetail = () => {
   const {id} = useParams();
   const filterProduct = productsJSON.filter( item => item.id === parseInt(id))
 
-  const obj = {
-    id: 1,
-    name: 'trolo'
-  }
-
   const onAdd = (count) => {
     console.log(`Agregaste al carrito ${count} unidades`);
     setViewCart(true)
