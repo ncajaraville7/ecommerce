@@ -1,36 +1,54 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Box, Heading, Stack, Image, Text, Button } from '@chakra-ui/react';
 import { Link, useParams } from 'react-router-dom'
-import productsJSON from '../products.json'
 import ItemCount from './ItemCount'
 import { CartContext } from './CartContext';
+import { doc, getDoc } from 'firebase/firestore';
+import db from '../utils/firebaseConfig';
 
 const ItemDetail = () => {
 
   const [ viewCart, setViewCart ] = useState(false)
+  const [ itemDetail ,setItemDetail ] = useState([])
   const test = useContext(CartContext);
 
   const {id} = useParams();
-  const filterProduct = productsJSON.filter( item => item.id === parseInt(id))
 
   const onAdd = (count) => {
     console.log(`Agregaste al carrito ${count} unidades`);
     setViewCart(true)
-    console.log(filterProduct)
-    test.addItem(...filterProduct, count);
+    test.addItem(itemDetail, count);
   }
 
+  useEffect( () => {
+    const firebaseItem = async() => {
+      const docRef = doc(db, "products", id);
+      const docSnap = await getDoc(docRef);
+
+      if(docSnap.exists()) {
+        return {
+          id:id,
+          ...docSnap.data()
+        }
+      } 
+        return;
+    }
+    firebaseItem()
+      .then((data)=> setItemDetail(data))
+      .catch(error => console.log(error))
+  },[id])
+  
+  console.log(itemDetail)
+
   return (
-    <>
-      { filterProduct.map( product => (
-        <Stack direction='row' justify='center' gap={6} mt={8} key={product.id} >
+        <Stack direction='row' justify='center' gap={6} mt={8} key={itemDetail.id} >
           <Box>
-            <Image src={"../" + product.pictureUrl} alt={product.title} h='700px' />
+            <Image src={itemDetail.pictureUrl} alt={itemDetail.title} h='700px' />
           </Box>
           <Stack>
-            <Heading as='h4' color='#bc9341ab'>{product.title}</Heading>
-            <Text>{product.description}</Text>
-            <Text fontWeight='bold'>PRECIO: ${product.price}</Text>
+            <Heading as='h4' color='#bc9341ab'>{itemDetail.title}</Heading>
+            <Text>{itemDetail.description}</Text>
+            <Text fontWeight='bold'>PRECIO: ${itemDetail.price}</Text>
             
             { !viewCart ? 
             
@@ -48,8 +66,6 @@ const ItemDetail = () => {
           }
           </Stack>
         </Stack>
-      ))}
-    </>
   )
 }
 

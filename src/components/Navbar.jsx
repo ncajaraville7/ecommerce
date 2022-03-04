@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import CartWidget from './CartWidget';
 
 const Navbar = () => {
+
   return (
       <Box as='header' boxShadow='md' p={4}  >
         <Container maxWidth='90%'>
