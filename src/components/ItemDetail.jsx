@@ -5,6 +5,7 @@ import ItemCount from './ItemCount'
 import { CartContext } from './CartContext';
 import { doc, getDoc } from 'firebase/firestore';
 import db from '../utils/firebaseConfig';
+import { firestoreFetchOne } from '../utils/firestoreFetch';
 
 const ItemDetail = () => {
 
@@ -21,22 +22,10 @@ const ItemDetail = () => {
   }
 
   useEffect( () => {
-    const firebaseItem = async() => {
-      const docRef = doc(db, "products", id);
-      const docSnap = await getDoc(docRef);
-
-      if(docSnap.exists()) {
-        return {
-          id:id,
-          ...docSnap.data()
-        }
-      } 
-        return;
-    }
-    firebaseItem()
-      .then((data)=> setItemDetail(data))
+    firestoreFetchOne(id)
+      .then(result => setItemDetail(result))
       .catch(error => console.log(error))
-  },[id])
+  },[])
   
   console.log(itemDetail)
 

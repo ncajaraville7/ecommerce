@@ -2,11 +2,47 @@ import { Button, Container, Heading, Image, Stack, Text } from '@chakra-ui/react
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { CartContext } from './CartContext'
+import { serverTimestamp, collection, setDoc, doc } from 'firebase/firestore'
+import db from '../utils/firebaseConfig';
 
 const CartDetail = () => {
 
   const test = useContext(CartContext);
   const totalCost = test.cartList.reduce( (total, item) => item.price + total, 0);
+
+  const createOrder = () => {
+    let order = {
+      buyer: {
+        email: "coderhouse@coder.com",
+        name: "Coder House",
+        phone: "123456789"
+      },
+      date: serverTimestamp(),
+      items: test.cartList.map( item => {
+        return {
+          id: item.id, 
+          price: item.price, 
+          title: item.name, 
+          qty: item.cant
+        }}),
+        total: totalCost
+    }
+
+    const createOrderInFirestore = async () => {
+      const newOrderRef = doc(collection(db, "orders"));
+      await setDoc(newOrderRef, order);
+      return newOrderRef;
+    }
+  
+    createOrderInFirestore()
+      .then(result => {
+        alert(`Compra realizada con exito. El ID de tu compra es ${result.id}`)
+        test.setCartList([]);
+        test.setAccountant(0);
+      })
+      .catch(error => console.log(error));
+  }
+
 
   return (
     <Stack>
@@ -54,6 +90,11 @@ const CartDetail = () => {
             <Text fontSize='28px'>${totalCost}</Text>
           </Stack>
         </Container>
+      }
+
+      {
+        test.cartList.length > 0 &&
+        <Button margin='0 auto !important' onClick={createOrder}>Comprar</Button>
       }
       
     </Stack>

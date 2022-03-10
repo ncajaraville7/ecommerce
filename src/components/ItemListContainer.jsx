@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Heading, Stack } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import ItemList from './ItemList';
-import db from '../utils/firebaseConfig';
-import { collection, getDocs } from "firebase/firestore";
+import { firestoreFetch } from '../utils/firestoreFetch';
 
 const ItemListContainer = ({ children }) => {
 
@@ -11,15 +10,8 @@ const ItemListContainer = ({ children }) => {
   const {categoryId} = useParams();
 
     useEffect( () => {
-      const firestoreFetch = async () => {
-        const querySnapshot = await getDocs(collection(db, "products"));
-        return querySnapshot.docs.map( document => ({
-          id: document.id,
-          ...document.data()
-        }))
-      }
-      firestoreFetch()
-        .then(data => setProducts(data))
+      firestoreFetch(categoryId)
+        .then(result => setProducts(result))
         .catch(error => console.log(error))
     }, [categoryId])
 
