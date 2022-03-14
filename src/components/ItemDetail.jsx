@@ -15,7 +15,7 @@ const ItemDetail = () => {
   const { id } = useParams();
 
   const onAdd = (count) => {
-    console.log(`Agregaste al carrito ${count} unidades`);
+    alert(`Agregaste al carrito ${count} unidades`);
     setViewCart(true);
     test.addItem(itemDetail, count);
   };
