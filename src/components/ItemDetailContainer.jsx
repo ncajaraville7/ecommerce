@@ -1,14 +1,13 @@
 import React from 'react';
-import { Stack } from '@chakra-ui/react'
-import ItemDetail from './ItemDetail'
+import { Stack } from '@chakra-ui/react';
+import ItemDetail from './ItemDetail';
 
 const ItemDetailContainer = () => {
-
   return (
     <Stack mt={12}>
-         <ItemDetail />
+      <ItemDetail />
     </Stack>
-  )
-}
+  );
+};
 
-export default ItemDetailContainer
+export default ItemDetailContainer;
