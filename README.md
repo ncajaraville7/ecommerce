@@ -29,3 +29,4 @@ Chakra UI
 Firebase
 
 ## DEPLOYMENT
+https://e-commerce-ncajaraville.netlify.app/
